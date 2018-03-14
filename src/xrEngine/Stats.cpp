@@ -69,6 +69,35 @@ CStats::~CStats()
     xr_delete(pFont);
 }
 
+//Romann
+
+void draw_Memory(CGameFont* pFont)
+{
+	float sz =
+	pFont->GetHeight();
+	pFont->SetHeightI(0.02f);
+	pFont->SetColor(color_rgba(0, 255, 0, 250));
+	pFont->Out(10, 12, "Memory: %2.2fa", Device.fTimeDelta);
+	pFont->SetHeight(sz);
+	pFont->OnRender();
+}
+
+//Romann
+
+//xrOxygen & Romann
+void draw_fps(CGameFont* pFont)
+{
+	float sz =
+	pFont->GetHeight();
+	pFont->SetHeightI(0.02f);
+//	pFont->SetColor(0xFFFFA917);
+	pFont->SetColor(color_rgba(0, 255, 0, 250));
+	pFont->Out(10, 10, "FPS: %0.0f", 1.0f / Device.fTimeDelta);
+	pFont->SetHeight(sz);
+	pFont->OnRender();
+	}
+//xrOxygen & Romann
+
 void _draw_cam_pos(CGameFont* pFont)
 {
     float sz = pFont->GetHeight();
@@ -338,7 +367,7 @@ void CStats::Show()
         pFont->OnRender();
     };
 
-    if ( /*psDeviceFlags.test(rsStatistic) ||*/ psDeviceFlags.test(rsCameraPos))
+	if ( /*psDeviceFlags.test(rsStatistic) ||*/ psDeviceFlags.test(rsCameraPos) || psDeviceFlags.test(rsDrawFPS) || psDeviceFlags.test(rsDrawMemory)/*|| draw_fps == TRUE || draw_Memory == TRUE*/ )
     {
         _draw_cam_pos(pFont);
         pFont->OnRender();
@@ -449,6 +478,21 @@ void CStats::Show()
     }
     dwSND_Played = dwSND_Allocated = 0;
     Particles_starting = Particles_active = Particles_destroy = 0;
+
+	//xrOxygen(Romann)
+		if (psDeviceFlags.test(rsDrawFPS)){
+		draw_fps(pFont);
+		pFont->OnRender();
+		
+		};
+	//xrOxygen(Romann)
+	//Romann
+		if (psDeviceFlags.test(rsDrawMemory)){
+			draw_Memory(pFont);
+			pFont->OnRender();
+
+		};
+	//Romann
 }
 
 void _LogCallback(LPCSTR string)
