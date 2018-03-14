@@ -755,6 +755,12 @@ void CCC_Register()
     CMD3(CCC_Mask, "rs_render_dynamics", &psDeviceFlags, rsDrawDynamic);
 #endif
 
+	//xrOxygen(Romann)
+	CMD3(CCC_Mask, "rs_draw_fps", &psDeviceFlags, rsDrawFPS);
+	//xrOxygen(Romann)
+	//Romann
+	CMD3(CCC_Mask, "rs_draw_Memory", &psDeviceFlags, rsDrawMemory);
+	//Romann
     // Render device states
     CMD4(CCC_Integer, "r__supersample", &ps_r__Supersample, 1, 4);
 
