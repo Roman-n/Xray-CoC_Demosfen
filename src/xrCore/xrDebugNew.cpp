@@ -427,6 +427,7 @@ int out_of_memory_handler(size_t size)
         int eco_smem = (int) g_pSharedMemoryContainer->stat_economy();
         Msg("* [x-ray]: process heap[%u K]", process_heap / 1024, process_heap / 1024);
         Msg("* [x-ray]: economy: strings[%d K], smem[%d K]", eco_strings / 1024, eco_smem);
+		Log("# Assembly of engine from Romann.....");
     }
 
     Debug.fatal(DEBUG_INFO, "Out of memory. Memory request: %d K", size / 1024);
