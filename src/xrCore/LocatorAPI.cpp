@@ -713,6 +713,7 @@ void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
     t.Start();
     Log("Initializing File System...");
     u32 M1 = Memory.mem_usage();
+	Log("# Assembly of engine from Romann.....");
 
     m_Flags.set(flags, TRUE);
 
