@@ -60,7 +60,7 @@ CStats::CStats()
     pFont = 0;
     fMem_calls = 0;
     RenderDUMP_DT_Count = 0;
-    Device.seqRender.Add(this, REG_PRIORITY_LOW - 1000);
+	Device.seqRender.Add(this, REG_PRIORITY_LOW - 1000);
 }
 
 CStats::~CStats()
@@ -69,30 +69,14 @@ CStats::~CStats()
     xr_delete(pFont);
 }
 
-//Romann
-
-void draw_Memory(CGameFont* pFont)
-{
-	float sz =
-	pFont->GetHeight();
-	pFont->SetHeightI(0.02f);
-	pFont->SetColor(color_rgba(0, 255, 0, 250));
-	pFont->Out(10, 12, "Memory: %2.2fa", Device.fTimeDelta);
-	pFont->SetHeight(sz);
-	pFont->OnRender();
-}
-
-//Romann
-
 //xrOxygen & Romann
 void draw_fps(CGameFont* pFont)
 {
 	float sz =
 	pFont->GetHeight();
-	pFont->SetHeightI(0.02f);
-//	pFont->SetColor(0xFFFFA917);
+	pFont->SetHeightI(0.025f);
 	pFont->SetColor(color_rgba(0, 255, 0, 250));
-	pFont->Out(10, 10, "FPS: %0.0f", 1.0f / Device.fTimeDelta);
+	pFont->Out(720, 10, "FPS: %1.0f", 1.0f / Device.fTimeDelta);
 	pFont->SetHeight(sz);
 	pFont->OnRender();
 	}
@@ -102,8 +86,8 @@ void _draw_cam_pos(CGameFont* pFont)
 {
     float sz = pFont->GetHeight();
     pFont->SetHeightI(0.02f);
-    pFont->SetColor(0xffffffff);
-    pFont->Out(10, 600, "CAMERA POSITION:  [%3.2f,%3.2f,%3.2f]", VPUSH(Device.vCameraPosition));
+	pFont->SetColor(color_rgba(255, 255, 0, 250));
+    pFont->Out(10, 230, "CAMERA POSITION:  [%3.2f,%3.2f,%3.2f]", VPUSH(Device.vCameraPosition));
     pFont->SetHeight(sz);
     pFont->OnRender();
 }
@@ -193,6 +177,19 @@ void CStats::Show()
         else fMem_calls = .9f*fMem_calls + .1f*mem_count;
         Memory.stat_calls = 0;
     }
+
+	//Romann
+	if (psDeviceFlags.test(rsDrawMemory))
+	{
+		float sz =
+		pFont->GetHeight();
+		pFont->SetHeightI(0.02f);
+		pFont->SetColor(color_rgba(0, 255, 0, 250));
+		pFont->Out(720, 30, "Memory: %3.1f", fMem_calls);
+		pFont->SetHeight(sz);
+		pFont->OnRender();
+	}
+	//Romann
 
     ////////////////////////////////////////////////
     if (g_dedicated_server) return;
@@ -367,7 +364,7 @@ void CStats::Show()
         pFont->OnRender();
     };
 
-	if ( /*psDeviceFlags.test(rsStatistic) ||*/ psDeviceFlags.test(rsCameraPos) || psDeviceFlags.test(rsDrawFPS) || psDeviceFlags.test(rsDrawMemory)/*|| draw_fps == TRUE || draw_Memory == TRUE*/ )
+	if (psDeviceFlags.test(rsCameraPos))
     {
         _draw_cam_pos(pFont);
         pFont->OnRender();
@@ -486,13 +483,13 @@ void CStats::Show()
 		
 		};
 	//xrOxygen(Romann)
-	//Romann
+	/*Romann
 		if (psDeviceFlags.test(rsDrawMemory)){
 			draw_Memory(pFont);
 			pFont->OnRender();
 
 		};
-	//Romann
+	Romann*/
 }
 
 void _LogCallback(LPCSTR string)
