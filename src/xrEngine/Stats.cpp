@@ -72,8 +72,7 @@ CStats::~CStats()
 //xrOxygen & Romann
 void draw_fps(CGameFont* pFont)
 {
-	float sz =
-	pFont->GetHeight();
+	float sz = pFont->GetHeight();
 	pFont->SetHeightI(0.025f);
 	pFont->SetColor(color_rgba(0, 255, 0, 250));
 	pFont->Out(720, 10, "FPS: %1.0f", 1.0f / Device.fTimeDelta);
@@ -177,7 +176,6 @@ void CStats::Show()
         else fMem_calls = .9f*fMem_calls + .1f*mem_count;
         Memory.stat_calls = 0;
     }
-
 	//Romann
 	if (psDeviceFlags.test(rsDrawMemory))
 	{
@@ -185,12 +183,11 @@ void CStats::Show()
 		pFont->GetHeight();
 		pFont->SetHeightI(0.02f);
 		pFont->SetColor(color_rgba(0, 255, 0, 250));
-		pFont->Out(720, 30, "Memory: %3.1f", fMem_calls);
+		pFont->Out(720, 30, "Memory: %3.0f", fMem_calls);
 		pFont->SetHeight(sz);
 		pFont->OnRender();
 	}
 	//Romann
-
     ////////////////////////////////////////////////
     if (g_dedicated_server) return;
     ////////////////////////////////////////////////
@@ -369,6 +366,14 @@ void CStats::Show()
         _draw_cam_pos(pFont);
         pFont->OnRender();
     };
+
+	//xrOxygen(Romann)
+	if (psDeviceFlags.test(rsDrawFPS))
+	{
+		draw_fps(pFont);
+		pFont->OnRender();
+	};
+	//xrOxygen(Romann)
 #ifdef DEBUG
     //////////////////////////////////////////////////////////////////////////
     // PERF ALERT
@@ -475,21 +480,6 @@ void CStats::Show()
     }
     dwSND_Played = dwSND_Allocated = 0;
     Particles_starting = Particles_active = Particles_destroy = 0;
-
-	//xrOxygen(Romann)
-		if (psDeviceFlags.test(rsDrawFPS)){
-		draw_fps(pFont);
-		pFont->OnRender();
-		
-		};
-	//xrOxygen(Romann)
-	/*Romann
-		if (psDeviceFlags.test(rsDrawMemory)){
-			draw_Memory(pFont);
-			pFont->OnRender();
-
-		};
-	Romann*/
 }
 
 void _LogCallback(LPCSTR string)
